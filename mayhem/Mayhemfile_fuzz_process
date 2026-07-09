@@ -1,0 +1,13 @@
+project: radvd
+# fuzz_process (mayhem/fuzz_process.c, from OSS-Fuzz projects/radvd) — feeds the input as a raw
+# ICMPv6 message to process(): radvd's Router Solicitation / Router Advertisement receive path
+# (process.o + send/interface helpers) on a mocked link-local interface.
+target: fuzz_process
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_process/testsuite
+
+cmds:
+  - cmd: /mayhem/fuzz_process
+    libfuzzer: true

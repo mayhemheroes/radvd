@@ -1,0 +1,13 @@
+project: radvd
+# fuzz_config (mayhem/fuzz_config.c, from OSS-Fuzz projects/radvd) — feeds the input through
+# readin_config(): radvd's real flex/bison radvd.conf parser (libradvd-parser.a) plus the
+# interface/prefix validation in interface.c. Input is a radvd.conf-style text config.
+target: fuzz_config
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_config/testsuite
+
+cmds:
+  - cmd: /mayhem/fuzz_config
+    libfuzzer: true
